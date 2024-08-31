@@ -3,174 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad Website</title>
-    <style>
-        /* CSS styles go here */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: skyblue;
-            background-image: url('https://www.transparenttextures.com/patterns/clouds.png'); /* Cloud texture */
-            background-repeat: repeat;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input, textarea {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-
-        .ads-list {
-            margin-top: 20px;
-        }
-
-        .ad-item {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Sellpass Clone</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="login-container">
-        <h1>Login</h1>
-        <form id="login-form">
-            <input type="email" id="login-email" placeholder="Email" required>
-            <input type="password" id="login-password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
-    </div>
+    <div id="main-container">
+        <!-- Login Form -->
+        <div id="login-container" class="container">
+            <h1>Login</h1>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+        </div>
 
-    <div class="container hidden" id="signup-container">
-        <h1>Sign Up</h1>
-        <form id="signup-form">
-            <input type="text" id="signup-username" placeholder="Username" required>
-            <input type="email" id="signup-email" placeholder="Email" required>
-            <input type="password" id="signup-password" placeholder="Password" required>
-            <button type="submit">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
-    </div>
+        <!-- Signup Form -->
+        <div id="signup-container" class="container hidden">
+            <h1>Sign Up</h1>
+            <form id="signup-form">
+                <input type="text" id="signup-username" placeholder="Username" required>
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
 
-    <div class="container hidden" id="ads-container">
-        <h1>Your Ads</h1>
-        <form id="ad-form">
-            <input type="text" id="ad-title" placeholder="Ad Title" required>
-            <textarea id="ad-description" placeholder="Ad Description" required></textarea>
-            <button type="submit">Create Ad</button>
-        </form>
-        <div class="ads-list" id="ads-list">
-            <!-- Ads will be dynamically added here -->
+        <!-- Dashboard -->
+        <div id="dashboard-container" class="container hidden">
+            <h1>Your Dashboard</h1>
+            <button id="logout">Logout</button>
+            <h2>Create New Ad</h2>
+            <form id="ad-form">
+                <input type="text" id="ad-title" placeholder="Ad Title" required>
+                <textarea id="ad-description" placeholder="Ad Description" required></textarea>
+                <button type="submit">Create Ad</button>
+            </form>
+            <div id="ads-list">
+                <!-- List of ads will appear here -->
+            </div>
         </div>
     </div>
 
-    <script>
-        // JavaScript goes here
-
-        // Toggle between login and signup forms
-        document.getElementById('show-signup').addEventListener('click', () => {
-            document.getElementById('login-container').classList.add('hidden');
-            document.getElementById('signup-container').classList.remove('hidden');
-        });
-
-        document.getElementById('show-login').addEventListener('click', () => {
-            document.getElementById('signup-container').classList.add('hidden');
-            document.getElementById('login-container').classList.remove('hidden');
-        });
-
-        // Handle signup form submission
-        document.getElementById('signup-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('signup-username').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-
-            // Store user in localStorage as a simulation
-            const user = { username, email, password };
-            localStorage.setItem('user', JSON.stringify(user));
-            alert('User registered! Please login.');
-
-            // Show login form
-            document.getElementById('signup-container').classList.add('hidden');
-            document.getElementById('login-container').classList.remove('hidden');
-        });
-
-        // Handle login form submission
-        document.getElementById('login-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            // Check user in localStorage
-            const user = JSON.parse(localStorage.getItem('user'));
-
-            if (user && user.email === email && user.password === password) {
-                alert('Login successful!');
-                document.getElementById('login-container').classList.add('hidden');
-                document.getElementById('ads-container').classList.remove('hidden');
-            } else {
-                alert('Invalid credentials. Please try again.');
-            }
-        });
-
-        // Handle ad form submission
-        document.getElementById('ad-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const title = document.getElementById('ad-title').value;
-            const description = document.getElementById('ad-description').value;
-
-            // Create a new ad and add it to the list
-            const adItem = document.createElement('div');
-            adItem.classList.add('ad-item');
-            adItem.innerHTML = `<h2>${title}</h2><p>${description}</p>`;
-            document.getElementById('ads-list').appendChild(adItem);
-
-            // Clear the form
-            document.getElementById('ad-title').value = '';
-            document.getElementById('ad-description').value = '';
-        });
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
