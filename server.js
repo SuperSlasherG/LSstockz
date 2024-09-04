@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const cors = require('cors');
+const path = require('path');
 
 // Replace with your MongoDB connection string
 const mongoURI = 'YOUR_MONGODB_CONNECTION_STRING';
@@ -13,8 +13,9 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express();
 
-app.use(cors());
+// Middleware
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // User Schema
 const UserSchema = new mongoose.Schema({
@@ -25,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 // Signup Route
-app.post('/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -46,7 +47,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // Login Route
-app.post('/login', async (req, res) => {
+app.post('/api/signin', async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -66,6 +67,15 @@ app.post('/login', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
+});
+
+// Serve Signup and Signin HTML files
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
+
+app.get('/signin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'signin.html'));
 });
 
 const PORT = process.env.PORT || 5000;
