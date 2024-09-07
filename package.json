@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
      "scripts": {
-    "build": "[my-framework] build --output public"
+    "build": "LSstockz build --output public"
   }
     },
     "dependencies": {
