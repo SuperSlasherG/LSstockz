@@ -1,7 +1,7 @@
 {
     "name": "vouches-website",
     "version": "1.0.0",
-    "description": "Vouches website where only Logic Gamer can upload images",
+    "description": "Vouches website where only Logic Gamer can upload",
     "main": "server.js",
     "scripts": {
      "scripts": {
