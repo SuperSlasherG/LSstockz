@@ -4,16 +4,19 @@
   "description": "Vouches website where only Logic Gamer can upload",
   "main": "server.js",
   "scripts": {
-    "build": "next build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "echo 'This project does not need a build script'"
   },
-"dependencies": {
-  "body-parser": "^1.19.0",
-  "express": "^4.17.1",
-  "express-session": "^1.17.1",
-  "mongoose": "^5.10.9",
-  "multer": "^1.4.2",
-  "bcryptjs": "^2.4.3",  // This should already be included
-  "path": "^0.12.7"
-}
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.9",
+    "multer": "^1.4.2",
+    "bcryptjs": "^2.4.3",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
 }
